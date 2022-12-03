@@ -16,22 +16,20 @@
 
 </style>
 
-<h1>Products List</h1>
+<h1>Category List</h1>
 <table>
     <tr>
         <th style="width: 40;">S. No</th>
         <th>Name</th>
-        <th>Category</th>
     </tr>
-    {% for product in object_list %}
+    {% for category in object_list %}
     <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
+        <td>{{ category.name }}</td>
     </tr>
     {% empty %}
     <tr>
-        <td>No Product Added.</td>
+        <td>No Category Added.</td>
     </tr>
     {% endfor %}
 
