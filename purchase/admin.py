@@ -14,6 +14,6 @@ class PurchaseAdmin(admin.ModelAdmin):
 
 @admin.register(PurchaseItem)
 class PurchaseItemAdmin(admin.ModelAdmin):
-    list_display = ['purchase', 'product', 'quantity', 'unit', 'cost', 'created_at', 'updated_at']
+    list_display = ['purchase', 'product', 'quantity', 'cost', 'created_at', 'updated_at']
     search_fields = ['product']
     list_filter = ['product']

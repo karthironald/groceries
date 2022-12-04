@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.views.generic.list import ListView
+from .models import Purchase, PurchaseItem
 
-# Create your views here.
+class PurchaseListView(ListView):
+    model = Purchase
+    paginate_by: int = 50
+
+class PurchaseItemListView(ListView):
+    model = PurchaseItem
+    paginate_by: int = 50

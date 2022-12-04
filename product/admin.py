@@ -3,7 +3,7 @@ from .models import Product, Category
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'created_at', 'updated_at']
+    list_display = ['name', 'category', 'quantity', 'unit', 'cost', 'created_at', 'updated_at']
     search_fields = ['name']
 
 @admin.register(Category)

@@ -1,5 +1,6 @@
 from django.db import models
-from product.models import Product, TimeMixin
+from product.models import TimeMixin, Product
+from groceries import enum
 
 class Store(TimeMixin):
     name = models.CharField(max_length=200, blank=False, null=False)
@@ -19,20 +20,25 @@ class Purchase(TimeMixin):
         return f"{self.name} ({self.store})"
 
 class PurchaseItem(TimeMixin):
-    MEASURING_UNITS = [
-        ('lt', 'litre'),
-        ('kg', 'kgs'),
-        ('g', 'g'),
-        ('nos', 'nos'),
-        ('pack', 'pack'),
-        ('roll', 'roll'),
-    ]
-
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(blank=False, null=False, default=1)
-    unit = models.CharField(max_length=100, choices=MEASURING_UNITS, blank=False, null=False, default='nos')
     cost = models.FloatField(blank=True, null=True, default=0.0)
 
     def __str__(self) -> str:
         return f"{self.purchase} ({self.product})"
+
+    def total_quantity_string(self):
+        t_quantity = self.product.quantity * self.quantity
+        unit = self.product.unit
+        if unit == enum.MeasuringUnits.GRAM:
+            if t_quantity > 1000:
+                t_quantity = t_quantity / 1000
+                unit = enum.MeasuringUnits.KILOGRAM
+            
+        elif self.product.unit == enum.MeasuringUnits.MILLILITRE:
+            if t_quantity > 1000:
+                t_quantity = t_quantity / 1000
+                unit = enum.MeasuringUnits.LITRE
+        
+        return f"{t_quantity:g} {unit}"

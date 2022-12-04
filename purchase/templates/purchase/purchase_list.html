@@ -1,0 +1,43 @@
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+    }
+    table {
+        width: 80%;
+    }
+    th {
+        background-color: gray;
+        color: white;
+        text-align: center;
+    }
+
+</style>
+
+<h1>Purchases List</h1>
+<table>
+    <tr>
+        <th style="width: 40;">S. No</th>
+        <th>Name</th>
+        <th>Purchased at</th>
+        <th>Store</th>
+        <th>Comments</th>
+    </tr>
+    {% for purchase in object_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td style="cursor: pointer;" onclick="location.href='{% url "purchaseitem-list" purchase.id %}'">{{ purchase.name }}</td>
+        <td>{{ purchase.purchased_at }}</td>
+        <td>{{ purchase.store }}</td>
+        <td>{{ purchase.comments }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>No Purchase Added.</td>
+    </tr>
+    {% endfor %}
+
+</table>

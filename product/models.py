@@ -1,4 +1,5 @@
 from django.db import models
+from groceries import enum
 
 class TimeMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -17,10 +18,10 @@ class Category(TimeMixin):
 class Product(TimeMixin):
     name = models.CharField(max_length=200, blank=False, null=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(blank=False, null=False, default=1)
-    unit = models.CharField(max_length=100, choices=MEASURING_UNITS, blank=False, null=False, default='nos')
+    quantity = models.FloatField(blank=False, null=False, default=1, help_text='Give the quantity of the product. Example, 1 kg, 2 litres, etc.')
+    unit = models.CharField(max_length=100, choices=enum.MeasuringUnits.choices, blank=False, null=False, default='nos', help_text='Enter unit to measure the quantity. Example, 1kg, 2litre. Here, kg and litre are the units')
     cost = models.FloatField(blank=True, null=True, default=0.0)
     
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.quantity:g} {self.unit.lower()})"
 

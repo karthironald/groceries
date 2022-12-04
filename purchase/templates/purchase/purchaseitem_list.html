@@ -1,0 +1,43 @@
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+    }
+    table {
+        width: 80%;
+    }
+    th {
+        background-color: gray;
+        color: white;
+        text-align: center;
+    }
+
+</style>
+
+<h1>Purchases Items List</h1>
+<table>
+    <tr>
+        <th style="width: 40;">S. No</th>
+        <th>Product Name</th>
+        <th>Product quantity</th>
+        <th>Purchase quantity</th>
+        <th>Total quantity</th>
+    </tr>
+    {% for purchaseitem in object_list %}
+    <tr>
+        <td style="text-align: center">{{ forloop.counter }}</td>
+        <td>{{ purchaseitem.product.name }}</td>
+        <td style="text-align: center">{{ purchaseitem.product.quantity|floatformat:"0" }} {{ purchaseitem.product.unit|lower }}</td>
+        <td style="text-align: center">{{ purchaseitem.quantity }}</td>
+        <td style="text-align: center">{{ purchaseitem.total_quantity_string|lower }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>No Purchase Items Added.</td>
+    </tr>
+    {% endfor %}
+
+</table>
