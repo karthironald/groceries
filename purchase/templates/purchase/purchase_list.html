@@ -15,7 +15,7 @@
     {% for purchase in object_list %}
     <tr>
         <td>{{ forloop.counter }}</td>
-        <td style="cursor: pointer;" onclick="location.href='{% url "purchaseitem-list" purchase.id %}'">{{ purchase.name }}</td>
+        <td style="cursor: pointer;color: blue;" onclick="location.href='{% url "purchaseitem-list" purchase.id %}'"><u>{{ purchase.name }}</u></td>
         <td>{{ purchase.purchased_at }}</td>
         <td>{{ purchase.store }}</td>
         <td>{{ purchase.comments }}</td>
