@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+
+{% block title %}Purchases Items List{% endblock title %} 
+
+{% block content %}
+<h1>Purchases Items List</h1>
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>S. No</th>
+            <th>Product Name</th>
+            <th>Product quantity</th>
+            <th>Purchase quantity</th>
+            <th>Total quantity</th>
+        </tr>
+    </thead>
+    {% for purchaseitem in object_list %}
+    <tr>
+        <td style="text-align: center">{{ forloop.counter }}</td>
+        <td>{{ purchaseitem.product.name }}</td>
+        <td style="text-align: center">{{ purchaseitem.product.quantity|floatformat:"0" }} {{ purchaseitem.product.unit|lower }}</td>
+        <td style="text-align: center">{{ purchaseitem.quantity }}</td>
+        <td style="text-align: center">{{ purchaseitem.total_quantity_string|lower }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>No Purchase Items Added.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock content %}
